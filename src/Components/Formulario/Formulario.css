@@ -1,85 +1,275 @@
-.contenedor {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    width: 600px;
-    background-color: #fff;
-    padding-bottom: 30px;
 
+/* =========================
+   Variables y reset básico
+   ========================= */
+:root {
+  --color-principal: #3c009d;
+  --color-fondo-input: #eaeaea;
+  --color-texto-input: #797979;
+  --color-boton: #4c00b4;
+
+  /* Tipografía fluida: entre 20px y 48px según ancho */
+  --h1-size: clamp(24px, 4.5vw, 48px);
+  --label-size: clamp(14px, 2.6vw, 18px);
+  --input-size: clamp(16px, 3vw, 19px);
+  --boton-size: clamp(16px, 2.8vw, 19px);
+
+  /* Radios y espaciados */
+  --radius: 8px;
+  --gap-sm: 12px;
+  --gap-md: 20px;
+  --gap-lg: 30px;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+  background: #f7f7fb;
+  color: #222;
+}
+
+/* =========================
+   Contenedor principal
+   ========================= */
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  /* Ancho fluido + límite máximo para desktop grande */
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  padding: 20px 16px 30px; /* respiración lateral en móvil */
+  border-radius: var(--radius);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+}
+
+/* =========================
+   Encabezado
+   ========================= */
 .header{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 9px;
-    width: 100%;
-    margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .text{
-    color: #3c009d;
-    font-size: 48px;
-    font-weight: 700;
+  color: var(--color-principal);
+  font-size: var(--h1-size);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  margin: 0;
 }
 
 .underline{
-    width: 61px;
-    height: 6px;
-    background: #3c009d;
-    border-radius: 9px;
+  width: 61px;
+  height: 6px;
+  background: var(--color-principal);
+  border-radius: 9px;
 }
 
+/* =========================
+   Entradas de formulario
+   ========================= */
 .entradas{
-    margin-top: 55px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* compactamos en móvil */
 }
+
+/* Hacemos que cada .entrada sea 100% en móvil, limitada por max-width */
 .entrada{
-    display: flex;
-    align-items: center;
-    margin: auto;
-    width: 480px;
-    height: 60px;
-    background: #eaeaea;
-    border-radius: 6px;
+  display: grid;
+  grid-template-columns: 1fr;      /* label arriba del input en móvil */
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 480px;
+  min-height: 60px;
+  background: var(--color-fondo-input);
+  border-radius: var(--radius);
+  padding: 10px 14px;              /* mejor toque en móvil */
+  gap: 6px;
 }
 
+/* Label arriba del campo en móvil */
 label {
-    margin: 0px 30px;
+  margin: 0;
+  font-size: var(--label-size);
+  color: #444;
+  font-weight: 600;
 }
 
-input, select {
-    height: 50px;
-    width: 400px;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #797979;
-    font-size: 19px;
+/* Inputs fluidos */
+input,
+select {
+  height: 46px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-texto-input);
+  font-size: var(--input-size);
 }
 
+/* =========================
+   Botones de acción
+   ========================= */
 .enviar {
-    display: flex;
-    gap: 30px;
-    margin: 60px auto;
+  display: flex;
+  flex-wrap: wrap;                 /* permite bajar a 2 líneas en móvil */
+  gap: 16px;
+  justify-content: center;
+  margin: 32px auto 0;
+  width: 100%;
+  max-width: 480px;
 }
-.registrar, .cancelar{
-    display: flex;
-    justify-content: center;
+
+.registrar,
+.cancelar {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 180px;                /* más adaptable en móviles pequeños */
+  height: 52px;
+  padding: 0 20px;
+  color: #fff;
+  background: var(--color-boton);
+  border-radius: 999px;            /* pill */
+  font-size: var(--boton-size);
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: transform .06s ease, box-shadow .2s ease, opacity .2s ease;
+}
+
+.cancelar {
+  background: #6b7280;            /* gris para “cancelar” */
+}
+
+.registrar:hover,
+.cancelar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.registrar:active,
+.cancelar:active {
+  transform: translateY(0);
+  box-shadow: none;
+  opacity: 0.95;
+}
+
+/* =========================
+   Accesibilidad focus visible
+   ========================= */
+input:focus-visible,
+select:focus-visible,
+.registrar:focus-visible,
+.cancelar:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-principal) 65%, #ffffff);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* =========================
+   Breakpoints
+   ========================= */
+
+/* — Tablet pequeña: ≥ 600px — */
+@media (min-width: 600px) {
+  .contenedor {
+    padding: 28px 24px 36px;
+  }
+
+  .entradas {
+    gap: 20px;
+  }
+
+  .entrada {
+    padding: 12px 16px;
+  }
+
+  .enviar {
+    gap: 20px;
+  }
+}
+
+/* — Tablet (clásica): ≥ 768px — */
+@media (min-width: 768px) {
+  /* Colocamos label e input en una fila más cómoda */
+  .entrada {
+    grid-template-columns: 160px 1fr;  /* label a la izquierda */
     align-items: center;
-    width: 220px;
-    height: 59px;
-    color: #fff;
-    background: #4c00b4;
-    border-radius: 50px;
-    font-size: 19px;
-    font-weight: 700;
-    cursor: pointer;
+    gap: 10px;
+    min-height: 60px;
+  }
 
+  label {
+    margin: 0 10px 0 4px;
+    text-align: right;
+  }
 }
 
-@media (min-width: 420px) {
-    
+/* — Desktop: ≥ 1024px — */
+@media (min-width: 1024px) {
+  .contenedor {
+    max-width: 800px; /* un poco más ancho en escritorio */
+  }
+
+  .entradas {
+    gap: 24px;
+  }
+
+  .entrada {
+    max-width: none; /* usar todo el ancho del contenedor */
+    padding: 14px 18px;
+  }
+
+  .enviar {
+    margin-top: 40px;
+    justify-content: flex-end; /* botones a la derecha en desktop */
+  }
+
+  .registrar,
+  .cancelar {
+    min-width: 220px;
+    height: 56px;
+  }
 }
+
+/* — Monitores grandes / Widescreen: ≥ 1280px — */
+@media (min-width: 1280px) {
+  .contenedor {
+    max-width: 960px;
+  }
+
+  .entrada {
+    grid-template-columns: 220px 1fr;
+  }
+}
+
+/* — Soporte para pantallas muy pequeñas (≤ 360px) — */
+@media (max-width: 360px) {
+  .registrar,
+  .cancelar {
+    min-width: 140px;
+    height: 48px;
+    font-size: 15px;
+  }
+}
+
+
+
